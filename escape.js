@@ -180,7 +180,7 @@ function makeRandomChestProperties(chest) {
 
 }
 
-function makeRandombeggarProperties(beggar) {
+function makeRandomBeggarProperties(beggar) {
 
 	var wantChance = Math.floor(Math.random()*3);
 	
@@ -374,7 +374,7 @@ function makeRooms(rows, cols){
 			
 				if(Math.floor(Math.random()*2) == 0){
 				
-					makeRandombeggarProperties(room.beggar);
+					makeRandomBeggarProperties(room.beggar);
 				
 				}
 			
@@ -504,7 +504,7 @@ function drawBG(writeMessages){
 	
 	var isChestObjEmpty = isEmpty(roomProperties.chest);
 	
-	var isbeggarObjEmpty = isEmpty(roomProperties.beggar);
+	var isBeggarObjEmpty = isEmpty(roomProperties.beggar);
 	
 	if(isChestObjEmpty == false){
 	
@@ -536,7 +536,7 @@ function drawBG(writeMessages){
 	
 	}
 	
-	else if(isbeggarObjEmpty == false){
+	else if(isBeggarObjEmpty == false){
 	
 		c = "I";
 		
@@ -1067,7 +1067,7 @@ function checkRoom () {
 	
 	var isChestObjEmpty = isEmpty(roomProperties.chest);
 	
-	var isbeggarObjEmpty = isEmpty(roomProperties.beggar);
+	var isBeggarObjEmpty = isEmpty(roomProperties.beggar);
 	
 	if(isChestObjEmpty == false && roomProperties.chest.opened == false && player.keys > 0){ 
 			
@@ -1131,7 +1131,7 @@ function checkRoom () {
 			player.health += roomProperties.chest.health;
 	
 		}
-	}else if(isbeggarObjEmpty == false){
+	}else if(isBeggarObjEmpty == false){
 	
 		if(roomProperties.beggar.wantsGold > 0){
 		
