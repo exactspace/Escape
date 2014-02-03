@@ -45,6 +45,13 @@
 			color:#FF4D4D;
 			}
 			
+			p.messageGreen
+			{
+			font-size:14px;
+			font-weight:bold;
+			color:#1DF020;
+			}
+			
 			p.messageBlue
 			{
 			font-size:14px;
@@ -84,7 +91,7 @@
 	
 	<div id="centerDiv" class="centerDiv">
 		
-		<canvas id="playfield" width='840px'></canvas>
+		<canvas id="playfield" width='430px'></canvas>
 
 	</div>
 	

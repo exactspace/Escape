@@ -6,8 +6,8 @@ var canvas = document.getElementById('playfield');
 var playfieldWidth = 430;
 var playfieldHeight = 230;
 
-canvas.width = 840;
-canvas.height = 412;
+canvas.width = playfieldWidth;
+canvas.height = playfieldWidth;
 
 var mapStartLoc = ({x:250, y:25}); // x y coords of mini map
 var lastMapCurrentPixelLoc = ({x:0, y:0});
@@ -180,6 +180,63 @@ function makeRandomChestProperties(chest) {
 
 }
 
+function makeRandombeggarProperties(beggar) {
+
+	var wantChance = Math.floor(Math.random()*3);
+	
+	beggar.wantsGold = 0;
+	beggar.wantsFood = 0;
+	beggar.wantsKeys = 0;
+	
+	beggar.forGold = 0;
+	beggar.forFood = 0;
+	beggar.forKeys = 0;
+	
+	// gives at least 1 to either first or second item so both are never 0
+	
+	var atLeastOneChance = Math.floor(Math.random()*2);
+	
+	var a = 0;
+	var b = 0;
+	
+	if(atLeastOneChance == 0){
+	
+		a = 1;
+	
+	}else{
+	
+		b = 1;
+	}
+	
+	if(wantChance == 0){
+	
+		beggar.wantsGold = Math.floor(Math.random()*65) + 15;
+		
+		beggar.forFood = Math.floor(Math.random()*10) + a;
+		
+		beggar.forKeys = Math.floor(Math.random()*10) + b;
+	
+	}else if(wantChance == 1){
+	
+		beggar.wantsFood = Math.floor(Math.random()*5) + 5;
+		
+		beggar.forGold = Math.floor(Math.random()*40) + a;
+		
+		beggar.forKeys = Math.floor(Math.random()*8) + b;
+	
+	}else if(wantChance == 2){
+	
+		beggar.wantsKeys = Math.floor(Math.random()*4) + 1;
+		
+		beggar.forGold = Math.floor(Math.random()*60) + a;
+		
+		beggar.forFood = Math.floor(Math.random()*20) + b;
+	
+	}
+			
+
+}
+
 function makeRandomWallStrProperty() {
 
 	var wallChance = Math.floor(Math.random()*3);
@@ -282,18 +339,23 @@ function makeRooms(rows, cols){
 		
 		
 		room.chest = new Object();
+		
 		room.keys = new Object();
 		room.keys = null;
+		
 		room.gold = new Object();
 		room.gold = null;
+		
 		room.food = new Object();
 		room.food = null;
+		
+		room.beggar = new Object();
 		
 		room.visited = false;
 		
 		if(i != currentRoomPos.x && j != currentRoomPos.y){
 
-			var centerRoomProp = Math.floor(Math.random()*6);
+			var centerRoomProp = Math.floor(Math.random()*7);
 			
 			if(centerRoomProp == 1){
 			
@@ -309,6 +371,14 @@ function makeRooms(rows, cols){
 				room.food = Math.floor(Math.random()*6) + 1;
 			
 			}else if(centerRoomProp == 4){
+			
+				if(Math.floor(Math.random()*2) == 0){
+				
+					makeRandombeggarProperties(room.beggar);
+				
+				}
+			
+			}else if(centerRoomProp == 5){
 			
 				makeRandomChestProperties(room.chest);
 			
@@ -434,6 +504,8 @@ function drawBG(writeMessages){
 	
 	var isChestObjEmpty = isEmpty(roomProperties.chest);
 	
+	var isbeggarObjEmpty = isEmpty(roomProperties.beggar);
+	
 	if(isChestObjEmpty == false){
 	
 		if(roomProperties.chest.opened == false){
@@ -461,6 +533,49 @@ function drawBG(writeMessages){
 			}
 		
 		}
+	
+	}
+	
+	else if(isbeggarObjEmpty == false){
+	
+		c = "I";
+		
+		var forGoldStr = "";
+		var forFoodStr = "";
+		var forKeysStr = "";
+		
+		if(roomProperties.beggar.forGold > 0){
+		
+			forGoldStr ="Gold:"+roomProperties.beggar.forGold+" ";
+			
+		}
+		
+		if(roomProperties.beggar.forFood > 0){
+		
+			forFoodStr ="Food:"+roomProperties.beggar.forFood+" ";
+			
+		}
+		
+		if(roomProperties.beggar.forKeys > 0){
+		
+			forKeysStr ="Keys:"+roomProperties.beggar.forKeys+" ";
+			
+		}
+		
+		if(roomProperties.beggar.wantsGold > 0){
+		
+			writeMessage("Please.. give me "+roomProperties.beggar.wantsGold+" gold, and I will give you: "+forFoodStr+forKeysStr,"messageGreen");
+		
+		}else if(roomProperties.beggar.wantsFood > 0){
+		
+			writeMessage("Please.. give me "+roomProperties.beggar.wantsFood+" food, and I will give you: "+forGoldStr+forKeysStr,"messageGreen");
+		
+		}else{
+		
+			writeMessage("Please.. give me "+roomProperties.beggar.wantsKeys+" keys, and I will give you: "+forGoldStr+forFoodStr,"messageGreen");
+		
+		}
+		
 	
 	}
 	else if (roomProperties.keys != null) {
@@ -626,7 +741,7 @@ function drawBG(writeMessages){
 	
 	textCtx.fillStyle='#DEDEDE';
 	
-	textCtx.wrapText("Food:"+player.food,160,210,16);
+	textCtx.wrapText("F:"+player.food,160,210,16);
 	
 	diff = player.food - lastMove.food;
 	
@@ -647,7 +762,7 @@ function drawBG(writeMessages){
 	
 	textCtx.fillStyle='#DEDEDE';
 	
-	textCtx.wrapText("Keys:"+player.keys,260,210,16);
+	textCtx.wrapText("K:"+player.keys,260,210,16);
 	
 	diff = player.keys - lastMove.keys;
 	
@@ -667,7 +782,7 @@ function drawBG(writeMessages){
 	
 	textCtx.fillStyle='#DEDEDE';
 	
-	textCtx.wrapText("Gold:"+player.gold,350,210,16);
+	textCtx.wrapText("G:"+player.gold,350,210,16);
 	
 	diff = player.gold - lastMove.gold;
 	
@@ -952,6 +1067,8 @@ function checkRoom () {
 	
 	var isChestObjEmpty = isEmpty(roomProperties.chest);
 	
+	var isbeggarObjEmpty = isEmpty(roomProperties.beggar);
+	
 	if(isChestObjEmpty == false && roomProperties.chest.opened == false && player.keys > 0){ 
 			
 		roomProperties.chest.opened = true;
@@ -1014,6 +1131,65 @@ function checkRoom () {
 			player.health += roomProperties.chest.health;
 	
 		}
+	}else if(isbeggarObjEmpty == false){
+	
+		if(roomProperties.beggar.wantsGold > 0){
+		
+			if(player.gold >= roomProperties.beggar.wantsGold){
+			
+				player.gold -= roomProperties.beggar.wantsGold;
+				
+				player.food += roomProperties.beggar.forFood;
+				player.keys += roomProperties.beggar.forKeys;
+				
+				writeMessage("Oh, bless you!","messageGreen");
+			
+			}else{
+			
+				writeMessage("Sorry, need more gold.","messageGreen");
+			
+			}
+		
+		}
+		
+		else if(roomProperties.beggar.wantsFood > 0){
+		
+			if(player.food >= roomProperties.beggar.wantsFood){
+			
+				player.food -= roomProperties.beggar.wantsFood;
+				
+				player.gold += roomProperties.beggar.forGold;
+				player.keys += roomProperties.beggar.forKeys;
+				
+				writeMessage("Oh, bless you!","messageGreen");
+			
+			}else{
+			
+				writeMessage("Sorry, need more food.","messageGreen");
+			
+			}
+		
+		}
+		
+		else if(roomProperties.beggar.wantsKeys > 0){
+		
+			if(player.keys >= roomProperties.beggar.wantsKeys){
+			
+				player.keys -= roomProperties.beggar.wantsKeys;
+				
+				player.gold += roomProperties.beggar.forGold;
+				player.food += roomProperties.beggar.forFood;
+				
+				writeMessage("Oh, bless you!","messageGreen");
+			
+			}else{
+			
+				writeMessage("Sorry, need more keys.","messageGreen");
+			
+			}
+		
+		}
+	
 	}else if (roomProperties.keys != null) {
 	
 		player.keys += roomProperties.keys;
