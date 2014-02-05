@@ -960,19 +960,23 @@ function checkMoveWithPos(pos, dir){
 		var isBeggarObjEmpty = isEmpty(currentRoomProperties.beggar);
 		
 		if(isBeggarObjEmpty == false){
-				
+			
+			// get random empty room index
 			var emptyRoomIndex = Math.floor(Math.random()*emptyRoomList.length);
 		
-						
+			// room properties of random room		
 			var newRoomProperties = rooms[emptyRoomList[emptyRoomIndex].x][emptyRoomList[emptyRoomIndex].y];
 			
+			// apply random beggar properties to empty room
 			makeRandomBeggarProperties(newRoomProperties.beggar);
 			
+			// add current player location to empty room list
 			emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
 			
-			
+			// replace beggar object in current room to a blank object
 			currentRoomProperties.beggar = new Object();
 			
+			// get rid of old empty room index because it's not empty anymore
 			emptyRoomList.splice(emptyRoomIndex, 1);
 		
 		}
@@ -1224,6 +1228,9 @@ function checkRoom () {
 		writeMessage("You picked up the shiny object. Let's see what you collected: Keys:"+roomProperties.keys,"messageBlue");
 		
 		roomProperties.keys = null;
+		
+		// add current player location to empty room list
+		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
 	
 	}else if (roomProperties.food != null) {
 	
@@ -1232,6 +1239,9 @@ function checkRoom () {
 		writeMessage("You picked up the can. Let's see what you collected: Food:"+roomProperties.food,"messageBlue");
 		
 		roomProperties.food = null;
+		
+		// add current player location to empty room list
+		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
 	
 	}else if (roomProperties.gold != null) {
 	
@@ -1240,6 +1250,9 @@ function checkRoom () {
 		writeMessage("You picked up the shiny object. Let's see what you collected: Gold:"+roomProperties.gold,"messageBlue");
 		
 		roomProperties.gold = null;
+		
+		// add current player location to empty room list
+		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
 	
 	}
 	
