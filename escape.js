@@ -21,6 +21,8 @@ var dungeonSize = ({width:25, height:25});
 
 var currentRoomPos;
 
+var emptyRoomList = [];
+
 var player = new Object();
 
 var messages;
@@ -54,9 +56,7 @@ function writeMessage(messageStr, style){
 	messageStr = "<p class='"+style+"'>"+messageStr +"</p>\r";
 
 	messages = messageStr+messages;
-	
-	//document.getElementById("messages").innerHTML = "<p class='messageBold' style='float: left;'>>("+currentRoomPos.x+","+currentRoomPos.y+")</p> "+messages;
-	
+		
 	document.getElementById("messages").innerHTML = messages;
 	
 	var objDiv = document.getElementById("messages");
@@ -210,27 +210,27 @@ function makeRandomBeggarProperties(beggar) {
 	
 	if(wantChance == 0){
 	
-		beggar.wantsGold = Math.floor(Math.random()*65) + 15;
+		beggar.wantsGold = Math.floor(Math.random()*55) + 25;
 		
-		beggar.forFood = Math.floor(Math.random()*10) + a;
+		beggar.forFood = Math.floor(Math.random()*8) + a;
 		
-		beggar.forKeys = Math.floor(Math.random()*10) + b;
+		beggar.forKeys = Math.floor(Math.random()*7) + b;
 	
 	}else if(wantChance == 1){
 	
 		beggar.wantsFood = Math.floor(Math.random()*5) + 5;
 		
-		beggar.forGold = Math.floor(Math.random()*40) + a;
+		beggar.forGold = Math.floor(Math.random()*20) + a;
 		
-		beggar.forKeys = Math.floor(Math.random()*8) + b;
+		beggar.forKeys = Math.floor(Math.random()*7) + b;
 	
 	}else if(wantChance == 2){
 	
 		beggar.wantsKeys = Math.floor(Math.random()*4) + 1;
 		
-		beggar.forGold = Math.floor(Math.random()*60) + a;
+		beggar.forGold = Math.floor(Math.random()*40) + a;
 		
-		beggar.forFood = Math.floor(Math.random()*20) + b;
+		beggar.forFood = Math.floor(Math.random()*12) + b;
 	
 	}
 			
@@ -372,11 +372,11 @@ function makeRooms(rows, cols){
 			
 			}else if(centerRoomProp == 4){
 			
-				if(Math.floor(Math.random()*2) == 0){
+				//if(Math.floor(Math.random()*2) == 0){
 				
 					makeRandomBeggarProperties(room.beggar);
 				
-				}
+				//}
 			
 			}else if(centerRoomProp == 5){
 			
@@ -387,6 +387,10 @@ function makeRooms(rows, cols){
 		}else if(i == currentRoomPos.x && j == currentRoomPos.y){
 				
 			room.visited = true;
+		
+		}else{
+		
+			emptyRoomList.push({x:i, y:j});
 		
 		}
 	
@@ -453,7 +457,7 @@ function aniCurrentMapPixelLoc(){
 	if(blinkPixel){
 		mapCtx.fillStyle = "rgba(0,255,242,255)";
 	}else{
-		mapCtx.fillStyle = "rgba(158,158,158,255)";
+		mapCtx.fillStyle = "rgba(255,255,255,255)";
 	}
 	
 	blinkPixel = !blinkPixel;
@@ -619,7 +623,7 @@ function drawBG(writeMessages){
 		
 		if(l == " "){
 		
-			mapCtx.fillStyle = "rgba(255,255,255,255)";
+			mapCtx.fillStyle = "rgba(130,130,130,255)";
 			mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)-mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier), mapPixelOffset, mapPixelOffset);
 		
 		}else if(l == "+"){
@@ -645,7 +649,7 @@ function drawBG(writeMessages){
 		
 		if(u == " "){
 		
-			mapCtx.fillStyle = "rgba(255,255,255,255)";
+			mapCtx.fillStyle = "rgba(130,130,130,255)";
 			mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)-mapPixelOffset), mapPixelOffset, mapPixelOffset);
 		
 		}else if(u == "+"){
@@ -667,7 +671,7 @@ function drawBG(writeMessages){
 	
 	if(r == " "){
 	
-		mapCtx.fillStyle = "rgba(255,255,255,255)";
+		mapCtx.fillStyle = "rgba(130,130,130,255)";
 		mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)+mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier), mapPixelOffset, mapPixelOffset);
 	
 	}else if(r == "+"){
@@ -681,7 +685,7 @@ function drawBG(writeMessages){
 	
 	if(d == " "){
 		
-		mapCtx.fillStyle = "rgba(255,255,255,255)";
+		mapCtx.fillStyle = "rgba(130,130,130,255)";
 		mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+mapPixelOffset), mapPixelOffset, mapPixelOffset);
 		
 	}else if(d == "+"){
@@ -947,6 +951,29 @@ function checkMoveWithPos(pos, dir){
 		if(player.health == 10){
 		
 			writeMessage("You're running dangerously low on health!","messageRed");
+		
+		}
+		
+		// check if beggar was in room, and if so add beggar to empty room and remove old beggar
+		var currentRoomProperties = rooms[currentRoomPos.x][currentRoomPos.y];
+		
+		var isBeggarObjEmpty = isEmpty(currentRoomProperties.beggar);
+		
+		if(isBeggarObjEmpty == false){
+				
+			var emptyRoomIndex = Math.floor(Math.random()*emptyRoomList.length);
+		
+						
+			var newRoomProperties = rooms[emptyRoomList[emptyRoomIndex].x][emptyRoomList[emptyRoomIndex].y];
+			
+			makeRandomBeggarProperties(newRoomProperties.beggar);
+			
+			emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
+			
+			
+			currentRoomProperties.beggar = new Object();
+			
+			emptyRoomList.splice(emptyRoomIndex, 1);
 		
 		}
 			
