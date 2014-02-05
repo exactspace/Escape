@@ -182,6 +182,8 @@ function makeRandomChestProperties(chest) {
 
 function makeRandomBeggarProperties(beggar) {
 
+	beggar.interactedWith = false;
+
 	var wantChance = Math.floor(Math.random()*3);
 	
 	beggar.wantsGold = 0;
@@ -959,23 +961,23 @@ function checkMoveWithPos(pos, dir){
 		
 		var isBeggarObjEmpty = isEmpty(currentRoomProperties.beggar);
 		
-		if(isBeggarObjEmpty == false){
-			
+		if(isBeggarObjEmpty == false && currentRoomProperties.beggar.interactedWith == true){ // beggar in current room
+		
 			// get random empty room index
 			var emptyRoomIndex = Math.floor(Math.random()*emptyRoomList.length);
-		
+	
 			// room properties of random room		
 			var newRoomProperties = rooms[emptyRoomList[emptyRoomIndex].x][emptyRoomList[emptyRoomIndex].y];
-			
+		
 			// apply random beggar properties to empty room
 			makeRandomBeggarProperties(newRoomProperties.beggar);
-			
+		
 			// add current player location to empty room list
 			emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
-			
+		
 			// replace beggar object in current room to a blank object
 			currentRoomProperties.beggar = new Object();
-			
+		
 			// get rid of old empty room index because it's not empty anymore
 			emptyRoomList.splice(emptyRoomIndex, 1);
 		
@@ -1173,6 +1175,8 @@ function checkRoom () {
 				player.food += roomProperties.beggar.forFood;
 				player.keys += roomProperties.beggar.forKeys;
 				
+				roomProperties.beggar.interactedWith = true;
+				
 				writeMessage("Oh, bless you!","messageGreen");
 			
 			}else{
@@ -1192,6 +1196,8 @@ function checkRoom () {
 				player.gold += roomProperties.beggar.forGold;
 				player.keys += roomProperties.beggar.forKeys;
 				
+				roomProperties.beggar.interactedWith = true;
+				
 				writeMessage("Oh, bless you!","messageGreen");
 			
 			}else{
@@ -1210,6 +1216,8 @@ function checkRoom () {
 				
 				player.gold += roomProperties.beggar.forGold;
 				player.food += roomProperties.beggar.forFood;
+				
+				roomProperties.beggar.interactedWith = true;
 				
 				writeMessage("Oh, bless you!","messageGreen");
 			
