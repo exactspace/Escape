@@ -57,14 +57,13 @@ function rgbToHex(r, g, b) {
 
 function writeMessage(messageStr, style){
 
-	messageStr = "<p class='"+style+"'>"+messageStr +"</p>\r";
+    var message = document.createElement('p');
+    message.appendChild(document.createTextNode(messageStr));
+    message.className = style;
 
-	messages = messageStr+messages;
-		
-	document.getElementById("messages").innerHTML = messages;
-	
-	var objDiv = document.getElementById("messages");
-	objDiv.scrollBottom = objDiv.scrollHeight;
+	var messages = document.getElementById("messages");
+    messages.insertBefore(message, messages.children[0]);
+	messages.scrollBottom = messages.scrollHeight;
 
 }
 
@@ -509,6 +508,9 @@ function drawBG(writeMessages){
 		roomProperties.visited = true;
 		
 		player.roomsVisited += 1;
+
+		console.log("points")
+		checkPoints();
 	
 	}
 	
@@ -1099,6 +1101,19 @@ document.addEventListener('keydown', function(event) {
 	}
 
 });
+
+var cheevos;
+
+cheevos = [100, 200, 500, 1000, 2000, 5000, 10000, 20000];
+
+function checkPoints (){
+  if (player.gold + player.roomsVisited >= cheevos[0]) {
+    writeMessage("Holy shit!!!!! You've earned an achievement!!!!!","messageGreen");
+    writeMessage("8============================@ "+cheevos[0]+" points","messageGreen");
+    cheevos.shift();
+    return null;
+  }
+};
 
 function checkRoom () {
 
