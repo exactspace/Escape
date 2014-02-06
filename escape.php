@@ -60,23 +60,23 @@
 			}
 			
 			.centerDiv{
-			width:430px;
+			width:460px;
 			border-radius: 5px;
 			background:#000000;
 			padding:10px;
 			height:520px;
 			position:absolute;
 			margin-top:-260px;
-			margin-left:-215px;
+			margin-left:-230px;
 			top:50%;
 			left:50%;}
 			
 			.messageBox{
 			position:absolute;
-			width:410px;
-			height:260px;
-			margin-left:-205px;
-			margin-top:-40px;
+			width:430px;
+			height:247px;
+			margin-left:-215px;
+			margin-top:-10px;
 			border:0px;
 			overflow:auto;
 			overflow-y:hidden;

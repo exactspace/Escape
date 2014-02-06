@@ -3,19 +3,23 @@
 
 var canvas = document.getElementById('playfield');
 
-var playfieldWidth = 430;
+var playfieldWidth = 460;
 var playfieldHeight = 230;
 
 canvas.width = playfieldWidth;
 canvas.height = playfieldWidth;
 
-var mapStartLoc = ({x:250, y:25}); // x y coords of mini map
+var mapStartLoc = ({x:250, y:10}); // x y coords of mini map
+
+var statsTextPos = ({x:30, y:235}); // position of stats text
+var statsLineHeight = 16;
+
 var lastMapCurrentPixelLoc = ({x:0, y:0});
-var mapPixelMultiplier = 6;
+var mapPixelMultiplier = 8;
 var mapPixelOffset = mapPixelMultiplier/2;
 var blinkPixel = false;
 
-var roomStartLoc = ({x:40, y:25});
+var roomStartLoc = ({x:10, y:15});
 
 var dungeonSize = ({width:25, height:25});
 
@@ -72,7 +76,7 @@ function initPlayer(){
 	currentRoomPos = ({x:2, y:2});
 	
 	//map outline
-	mapCtx.rect(mapStartLoc.x-2,mapStartLoc.y-2,152,152);
+	mapCtx.rect(mapStartLoc.x-2,mapStartLoc.y-2,mapPixelMultiplier*dungeonSize.width+2,mapPixelMultiplier*dungeonSize.height+2);
 	mapCtx.strokeStyle="white";
 	mapCtx.stroke();
 			
@@ -625,13 +629,13 @@ function drawBG(writeMessages){
 		
 		if(l == " "){
 		
-			mapCtx.fillStyle = "rgba(130,130,130,255)";
-			mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)-mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier), mapPixelOffset, mapPixelOffset);
+			mapCtx.fillStyle = "rgba(255,255,255,255)";
+			mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)-mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+(mapPixelOffset/4), mapPixelOffset, mapPixelOffset/2);
 		
 		}else if(l == "+"){
 		
 			mapCtx.fillStyle = "rgba(255,0,255,255)";
-			mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)-mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier), mapPixelOffset, mapPixelOffset);
+			mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)-mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+(mapPixelOffset/4), mapPixelOffset, mapPixelOffset/2);
 		
 		}
 	
@@ -651,13 +655,13 @@ function drawBG(writeMessages){
 		
 		if(u == " "){
 		
-			mapCtx.fillStyle = "rgba(130,130,130,255)";
-			mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)-mapPixelOffset), mapPixelOffset, mapPixelOffset);
+			mapCtx.fillStyle = "rgba(255,255,255,255)";
+			mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)+(mapPixelOffset/4), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)-mapPixelOffset), mapPixelOffset/2, mapPixelOffset);
 		
 		}else if(u == "+"){
 		
 			mapCtx.fillStyle = "rgba(255,0,255,255)";
-			mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)-mapPixelOffset), mapPixelOffset, mapPixelOffset);
+			mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)+(mapPixelOffset/4), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)-mapPixelOffset), mapPixelOffset/2, mapPixelOffset);
 		
 		}
 	
@@ -673,13 +677,13 @@ function drawBG(writeMessages){
 	
 	if(r == " "){
 	
-		mapCtx.fillStyle = "rgba(130,130,130,255)";
-		mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)+mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier), mapPixelOffset, mapPixelOffset);
-	
+		mapCtx.fillStyle = "rgba(255,255,255,255)";
+		mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)+mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+(mapPixelOffset/4), mapPixelOffset, mapPixelOffset/2);
+
 	}else if(r == "+"){
 	
 		mapCtx.fillStyle = "rgba(255,0,255,255)";
-		mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)+mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier), mapPixelOffset, mapPixelOffset);
+		mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier)+mapPixelOffset), mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+(mapPixelOffset/4), mapPixelOffset, mapPixelOffset/2);
 	
 	}
 	
@@ -687,30 +691,32 @@ function drawBG(writeMessages){
 	
 	if(d == " "){
 		
-		mapCtx.fillStyle = "rgba(130,130,130,255)";
-		mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+mapPixelOffset), mapPixelOffset, mapPixelOffset);
+		mapCtx.fillStyle = "rgba(255,255,255,255)";
+		mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier))+(mapPixelOffset/4), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+mapPixelOffset), mapPixelOffset/2, mapPixelOffset);
 		
 	}else if(d == "+"){
 	
 		mapCtx.fillStyle = "rgba(255,0,255,255)";
-		mapCtx.fillRect(mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+mapPixelOffset), mapPixelOffset, mapPixelOffset);
+		mapCtx.fillRect((mapStartLoc.x+(currentRoomPos.x*mapPixelMultiplier))+(mapPixelOffset/4), (mapStartLoc.y+(currentRoomPos.y*mapPixelMultiplier)+mapPixelOffset), mapPixelOffset/2, mapPixelOffset);
 	
 	}
 	
 	
 	
 	var roomStr = 
-   "+------"+u+"------+\n\
-	|             |\n\
-	|             |\n\
-	|             |\n\
-	|      "+c+"      |\n\
-	"+l+"             "+r+"\n\
-	|             |\n\
-	|             |\n\
-	|             |\n\
-	|             |\n\
-	+------"+d+"------+\n\
+   "+--------"+u+"--------+\n\
+	|                 |\n\
+	|                 |\n\
+	|                 |\n\
+	|                 |\n\
+	|        "+c+"        |\n\
+	"+l+"                 "+r+"\n\
+	|                 |\n\
+	|                 |\n\
+	|                 |\n\
+	|                 |\n\
+	|                 |\n\
+	+--------"+d+"--------+\n\
 	";
 	
 	// Fill with gradient
@@ -725,21 +731,21 @@ function drawBG(writeMessages){
 	
 	textCtx.fillStyle='#DEDEDE';
 	
-	textCtx.wrapText("("+currentRoomPos.x+","+currentRoomPos.y+")",0,210,16);
+	textCtx.wrapText("("+currentRoomPos.x+","+currentRoomPos.y+")",statsTextPos.x,statsTextPos.y,statsLineHeight);
 	
-	textCtx.wrapText(player.health+"/"+player.maxHealth,80,210,16);
+	textCtx.wrapText(player.health+"/"+player.maxHealth,statsTextPos.x+80,statsTextPos.y,statsLineHeight);
 	
 	diff = player.health - lastMove.health;
 	
 	if(diff < 0){
 	
 		textCtx.fillStyle='#EB1313';
-		textCtx.wrapText(""+diff+"",80,230,16);
+		textCtx.wrapText(""+diff+"",statsTextPos.x+80,statsTextPos.y+20,statsLineHeight);
 
 	}else if(diff > 0){
 	
 		textCtx.fillStyle='#05ED14';
-		textCtx.wrapText("+"+diff,80,230,16);
+		textCtx.wrapText("+"+diff,statsTextPos.x+80,statsTextPos.y+20,statsLineHeight);
 	
 	}
 	
@@ -747,19 +753,19 @@ function drawBG(writeMessages){
 	
 	textCtx.fillStyle='#DEDEDE';
 	
-	textCtx.wrapText("F:"+player.food,160,210,16);
+	textCtx.wrapText("F:"+player.food,statsTextPos.x+160,statsTextPos.y,statsLineHeight);
 	
 	diff = player.food - lastMove.food;
 	
 	if(diff < 0){
 	
 		textCtx.fillStyle='#EB1313';
-		textCtx.wrapText(""+diff+"",160,230,16);
+		textCtx.wrapText(""+diff+"",statsTextPos.x+160,statsTextPos.y+20,statsLineHeight);
 
 	}else if(diff > 0){
 	
 		textCtx.fillStyle='#05ED14';
-		textCtx.wrapText("+"+diff,160,230,16);
+		textCtx.wrapText("+"+diff,statsTextPos.x+160,statsTextPos.y+20,statsLineHeight);
 	
 	}
 	
@@ -768,19 +774,19 @@ function drawBG(writeMessages){
 	
 	textCtx.fillStyle='#DEDEDE';
 	
-	textCtx.wrapText("K:"+player.keys,260,210,16);
+	textCtx.wrapText("K:"+player.keys,statsTextPos.x+260,statsTextPos.y,statsLineHeight);
 	
 	diff = player.keys - lastMove.keys;
 	
 	if(diff < 0){
 	
 		textCtx.fillStyle='#EB1313';
-		textCtx.wrapText(""+diff+"",260,230,16);
+		textCtx.wrapText(""+diff+"",statsTextPos.x+260,statsTextPos.y+20,statsLineHeight);
 
 	}else if(diff > 0){
 	
 		textCtx.fillStyle='#05ED14';
-		textCtx.wrapText("+"+diff,260,230,16);
+		textCtx.wrapText("+"+diff,statsTextPos.x+260,statsTextPos.y+20,statsLineHeight);
 	
 	}
 	
@@ -788,19 +794,19 @@ function drawBG(writeMessages){
 	
 	textCtx.fillStyle='#DEDEDE';
 	
-	textCtx.wrapText("G:"+player.gold,350,210,16);
+	textCtx.wrapText("G:"+player.gold,statsTextPos.x+350,statsTextPos.y,statsLineHeight);
 	
 	diff = player.gold - lastMove.gold;
 	
 	if(diff < 0){
 	
 		textCtx.fillStyle='#EB1313';
-		textCtx.wrapText(""+diff+"",350,230,16);
+		textCtx.wrapText(""+diff+"",statsTextPos.x+350,statsTextPos.y+20,statsLineHeight);
 
 	}else if(diff > 0){
 	
 		textCtx.fillStyle='#05ED14';
-		textCtx.wrapText("+"+diff,350,230,16);
+		textCtx.wrapText("+"+diff,statsTextPos.x+350,statsTextPos.y+20,statsLineHeight);
 	
 	}
 	
@@ -826,7 +832,7 @@ drawBG(false);
 
 function clearPlayfield (){ 
 	//textCtx.clearRect (0, 0, playfieldWidth, playfieldHeight);
-	textCtx.clearRect(roomStartLoc.x, 14, 162, 171);
+	textCtx.clearRect(roomStartLoc.x, roomStartLoc.y-16, 205, 210);
 	clearText();
 	
 	mapCtx.fillStyle = "rgba(255,255,255,255)";
@@ -834,7 +840,7 @@ function clearPlayfield (){
 }
 
 function clearText (){ 
-	textCtx.clearRect(0, 175, playfieldWidth, 65);
+	textCtx.clearRect(statsTextPos.x, statsTextPos.y-statsLineHeight, playfieldWidth, 65);
 }
 
 function clearMap () {
