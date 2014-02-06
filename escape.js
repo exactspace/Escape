@@ -71,7 +71,6 @@ function writeMessage(messageStr, style){
 var mapCtx = canvas.getContext('2d');
 
 function initPlayer(){
-
 	currentRoomPos = ({x:2, y:2});
 	
 	//map outline
@@ -105,6 +104,10 @@ function initPlayer(){
 
 initPlayer();
 
+function roll(d) {
+	return dice.parse(d).value;
+}
+
 function isEmpty(obj) {
 
     // null and undefined are "empty"
@@ -130,12 +133,12 @@ function isEmpty(obj) {
 function makeRandomChestProperties(chest) {
 	
 	chest.opened = false;
-		
-	var openChestChance = Math.floor(Math.random()*2);
-	
+
+	var openChestChance = roll('D2-1');
+			
 	if(openChestChance == 0){
 
-		chest.keys = Math.floor(Math.random()*3) + 1;
+		chest.keys = roll('D3');
 		
 	}else{
 	
@@ -144,11 +147,11 @@ function makeRandomChestProperties(chest) {
 	}
 	
 	
-	openChestChance = Math.floor(Math.random()*2);
+	openChestChance = roll('D2-1');
 	
 	if(openChestChance == 0){
 	
-		chest.gold = Math.floor(Math.random()*10) + 1;
+		chest.gold = roll('D10');
 		
 	}else{
 	
@@ -156,11 +159,11 @@ function makeRandomChestProperties(chest) {
 	
 	}
 	
-	openChestChance = Math.floor(Math.random()*2);
+	openChestChance = roll('D2-1')
 	
 	if(openChestChance == 0){
 
-		chest.food = Math.floor(Math.random()*7) + 1;
+		chest.food = roll('D7');
 		
 	}else{
 	
@@ -168,11 +171,11 @@ function makeRandomChestProperties(chest) {
 	
 	}
 	
-	openChestChance = Math.floor(Math.random()*2);
+	openChestChance = roll('D2-1');
 	
 	if(openChestChance == 0){
 
-		chest.health = Math.floor(Math.random()*6) + 1;
+		chest.health = roll('D6');
 		
 	}else{
 	
@@ -187,7 +190,7 @@ function makeRandomBeggarProperties(beggar) {
 
 	beggar.interactedWith = false;
 
-	var wantChance = Math.floor(Math.random()*3);
+	var wantChance = roll('D3-1');
 	
 	beggar.wantsGold = 0;
 	beggar.wantsFood = 0;
@@ -199,52 +202,35 @@ function makeRandomBeggarProperties(beggar) {
 	
 	// gives at least 1 to either first or second item so both are never 0
 	
-	var atLeastOneChance = Math.floor(Math.random()*2);
+	var atLeastOneChance = roll('D2-1');
 	
 	var a = 0;
 	var b = 0;
 	
 	if(atLeastOneChance == 0){
-	
 		a = 1;
-	
 	}else{
-	
 		b = 1;
 	}
 	
 	if(wantChance == 0){
-	
-		beggar.wantsGold = Math.floor(Math.random()*55) + 25;
-		
-		beggar.forFood = Math.floor(Math.random()*8) + a;
-		
-		beggar.forKeys = Math.floor(Math.random()*7) + b;
-	
+		beggar.wantsGold = roll('D55-1+25');
+		beggar.forFood = roll('D8-1') + a;		
+		beggar.forKeys = roll('D7-1') + b;
 	}else if(wantChance == 1){
-	
-		beggar.wantsFood = Math.floor(Math.random()*5) + 5;
-		
-		beggar.forGold = Math.floor(Math.random()*20) + a;
-		
-		beggar.forKeys = Math.floor(Math.random()*7) + b;
-	
-	}else if(wantChance == 2){
-	
-		beggar.wantsKeys = Math.floor(Math.random()*4) + 1;
-		
-		beggar.forGold = Math.floor(Math.random()*40) + a;
-		
-		beggar.forFood = Math.floor(Math.random()*12) + b;
-	
+		beggar.wantsFood = roll('D5-1+5');
+		beggar.forGold = roll('D20-1') + a;
+		beggar.forKeys = roll('D7-1') + b;
+	}else if(wantChance == 2){	
+		beggar.wantsKeys = roll('D4');
+		beggar.forGold = roll('D40-1') + a;
+		beggar.forFood = roll('D12-1') + b;
 	}
-			
-
 }
 
 function makeRandomWallStrProperty() {
 
-	var wallChance = Math.floor(Math.random()*3);
+	var wallChance = roll('D3-1');
 	
 	var wallStr;
 		
@@ -360,20 +346,20 @@ function makeRooms(rows, cols){
 		
 		if(i != currentRoomPos.x && j != currentRoomPos.y){
 
-			var centerRoomProp = Math.floor(Math.random()*7);
+			var centerRoomProp = roll('D7-1');
 			
 			if(centerRoomProp == 1){
 			
-				room.keys = Math.floor(Math.random()*3) + 1;
+				room.keys = roll('D3');
 					
 			}
 			else if(centerRoomProp == 2){
 			
-				room.gold = Math.floor(Math.random()*5) + 1;
+				room.gold = roll('D5');
 			
 			}else if(centerRoomProp == 3){
 			
-				room.food = Math.floor(Math.random()*6) + 1;
+				room.food = roll('D6');
 			
 			}else if(centerRoomProp == 4){
 			
