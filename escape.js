@@ -860,7 +860,7 @@ function endGame(){
 
 		writeMessage("You died, most likely of starvation.","messageRed");
 	
-		textCtx.fillText("YOU'RE DEAD", roomStartLoc.x+23, roomStartLoc.y+30);
+		textCtx.fillText("YOU'RE DEAD", roomStartLoc.x+44, roomStartLoc.y+30);
 		
 	}
 	
