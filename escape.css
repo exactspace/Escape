@@ -1,0 +1,59 @@
+body { background-color: #1C1C1C }
+h1 {
+    color: orange;
+    text-align: center;
+}
+p {
+    font-family: "Courier New";
+    font-size: 18px;
+    color: #A1A1A1;
+}
+p.messageReg {
+    font-size: 14px;
+    color: #FFF;
+}
+p.messageBold {
+    font-size: 14px;
+    font-weight: bold;
+    color: #A1A1A1;
+}
+p.messageRed {
+    font-size: 14px;
+    font-weight: bold;
+    color: #FF4D4D;
+}
+p.messageGreen {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1DF020;
+}
+p.messageBlue {
+    font-size: 14px;
+    font-weight: bold;
+    color: #0088FF;
+}
+.centerDiv {
+    width: 460px;
+    border-radius: 5px;
+    background: #000000;
+    padding: 10px;
+    height: 520px;
+    position: absolute;
+    margin-top: -260px;
+    margin-left: -230px;
+    top: 50%;
+    left: 50%;
+}
+.messageBox {
+    position: absolute;
+    width: 430px;
+    height: 247px;
+    margin-left: -215px;
+    margin-top: -10px;
+    border: 0px;
+    overflow: auto;
+    overflow-y: hidden;
+    padding: 10px;
+    top: 50%;
+    left: 50%;
+}
