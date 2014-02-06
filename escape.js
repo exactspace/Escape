@@ -214,11 +214,11 @@ function makeRandomBeggarProperties(beggar) {
 	}
 	
 	if(wantChance == 0){
-		beggar.wantsGold = roll('D55-1+25');
+		beggar.wantsGold = roll('D55+25');
 		beggar.forFood = roll('D8-1') + a;		
 		beggar.forKeys = roll('D7-1') + b;
 	}else if(wantChance == 1){
-		beggar.wantsFood = roll('D5-1+5');
+		beggar.wantsFood = roll('D5+5');
 		beggar.forGold = roll('D20-1') + a;
 		beggar.forKeys = roll('D7-1') + b;
 	}else if(wantChance == 2){	
