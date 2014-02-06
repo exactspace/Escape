@@ -845,7 +845,7 @@ function clearText (){
 
 function clearMap () {
 
-	mapCtx.clearRect(mapStartLoc.x-2,mapStartLoc.y-2,152,152); 
+	mapCtx.clearRect(mapStartLoc.x-2,mapStartLoc.y-2,(dungeonSize.width*mapPixelMultiplier)+2,(dungeonSize.height*mapPixelMultiplier)+2); 
 	
 	currentRoomPos = ({x:2, y:2});
 	
