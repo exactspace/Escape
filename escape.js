@@ -981,7 +981,7 @@ function checkMoveWithPos(pos, dir){
 			makeRandomBeggarProperties(newRoomProperties.beggar);
 		
 			// add current player location to empty room list
-			emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
+			emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
 		
 			// replace beggar object in current room to a blank object
 			currentRoomProperties.beggar = new Object();
@@ -1259,7 +1259,7 @@ function checkRoom () {
 		roomProperties.keys = null;
 		
 		// add current player location to empty room list
-		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
+		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
 	
 	}else if (roomProperties.food != null) {
 	
@@ -1270,7 +1270,7 @@ function checkRoom () {
 		roomProperties.food = null;
 		
 		// add current player location to empty room list
-		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
+		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
 	
 	}else if (roomProperties.gold != null) {
 	
@@ -1281,7 +1281,7 @@ function checkRoom () {
 		roomProperties.gold = null;
 		
 		// add current player location to empty room list
-		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.x});
+		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
 	
 	}
 	
