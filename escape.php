@@ -113,7 +113,7 @@
 	
 
 		
-
+	<script type="text/javascript" charset="utf-8" src="dice.js"></script>
 	<script type="text/javascript" charset="utf-8" src="escape.js"></script>
 		
 	
