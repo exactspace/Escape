@@ -135,16 +135,25 @@ function makeRandomChestProperties(chest) {
 	chest.opened = false;
 
 	var openChestChance = roll('D2-1');
+<<<<<<< HEAD
 
 	if(openChestChance == 0){
 
 		chest.keys = roll('D4');
 
+=======
+			
+	if(openChestChance == 0){
+
+		chest.keys = roll('D3');
+		
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}else{
 
 		chest.keys = 0;
 
 	}
+<<<<<<< HEAD
 
 
 	openChestChance = roll('D2-1');
@@ -153,11 +162,22 @@ function makeRandomChestProperties(chest) {
 
 		chest.gold = roll('D10');
 
+=======
+	
+	
+	openChestChance = roll('D2-1');
+	
+	if(openChestChance == 0){
+	
+		chest.gold = roll('D10');
+		
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}else{
 
 		chest.gold = 0;
 
 	}
+<<<<<<< HEAD
 
 	openChestChance = roll('D2-1')
 
@@ -165,11 +185,21 @@ function makeRandomChestProperties(chest) {
 
 		chest.food = roll('D7');
 
+=======
+	
+	openChestChance = roll('D2-1')
+	
+	if(openChestChance == 0){
+
+		chest.food = roll('D7');
+		
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}else{
 
 		chest.food = 0;
 
 	}
+<<<<<<< HEAD
 
 	openChestChance = roll('D2-1');
 
@@ -177,6 +207,15 @@ function makeRandomChestProperties(chest) {
 
 		chest.health = roll('D4');
 
+=======
+	
+	openChestChance = roll('D2-1');
+	
+	if(openChestChance == 0){
+
+		chest.health = roll('D6');
+		
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}else{
 
 		chest.health = 0;
@@ -191,7 +230,11 @@ function makeRandomBeggarProperties(beggar) {
 	beggar.interactedWith = false;
 
 	var wantChance = roll('D3-1');
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	beggar.wantsGold = 0;
 	beggar.wantsFood = 0;
 	beggar.wantsKeys = 0;
@@ -201,9 +244,15 @@ function makeRandomBeggarProperties(beggar) {
 	beggar.forKeys = 0;
 
 	// gives at least 1 to either first or second item so both are never 0
+<<<<<<< HEAD
 
 	var atLeastOneChance = roll('D2-1');
 
+=======
+	
+	var atLeastOneChance = roll('D2-1');
+	
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	var a = 0;
 	var b = 0;
 
@@ -214,24 +263,41 @@ function makeRandomBeggarProperties(beggar) {
 	}
 
 	if(wantChance == 0){
+<<<<<<< HEAD
 		beggar.wantsGold = roll('D55+24');
 		beggar.forFood = roll('D6-1') + a;		
 		beggar.forKeys = roll('D5-1') + b;
 	}else if(wantChance == 1){
 		beggar.wantsFood = roll('D10+4');
+=======
+		beggar.wantsGold = roll('D55-1+25');
+		beggar.forFood = roll('D8-1') + a;		
+		beggar.forKeys = roll('D7-1') + b;
+	}else if(wantChance == 1){
+		beggar.wantsFood = roll('D5-1+5');
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 		beggar.forGold = roll('D20-1') + a;
 		beggar.forKeys = roll('D7-1') + b;
 	}else if(wantChance == 2){	
 		beggar.wantsKeys = roll('D4');
+<<<<<<< HEAD
 		beggar.forGold = roll('D20-1') + a;
 		beggar.forFood = roll('D6-1') + b;
+=======
+		beggar.forGold = roll('D40-1') + a;
+		beggar.forFood = roll('D12-1') + b;
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}
 }
 
 function makeRandomWallStrProperty() {
 
 	var wallChance = roll('D3-1');
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	var wallStr;
 
 	if(wallChance == 0){
@@ -347,6 +413,7 @@ function makeRooms(rows, cols){
 		if(i != currentRoomPos.x && j != currentRoomPos.y){
 
 			var centerRoomProp = roll('D7-1');
+<<<<<<< HEAD
 
 			if(centerRoomProp == 1){
 
@@ -361,6 +428,22 @@ function makeRooms(rows, cols){
 
 				room.food = roll('D6');
 
+=======
+			
+			if(centerRoomProp == 1){
+			
+				room.keys = roll('D3');
+					
+			}
+			else if(centerRoomProp == 2){
+			
+				room.gold = roll('D5');
+			
+			}else if(centerRoomProp == 3){
+			
+				room.food = roll('D6');
+			
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 			}else if(centerRoomProp == 4){
 
 				//if(Math.floor(Math.random()*2) == 0){
@@ -968,7 +1051,11 @@ function checkMoveWithPos(pos, dir){
 
 			// add current player location to empty room list
 			emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
+<<<<<<< HEAD
 
+=======
+		
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 			// replace beggar object in current room to a blank object
 			currentRoomProperties.beggar = new Object();
 
@@ -1246,7 +1333,11 @@ function checkRoom () {
 
 		// add current player location to empty room list
 		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}else if (roomProperties.food != null) {
 
 		player.food += roomProperties.food;
@@ -1257,7 +1348,11 @@ function checkRoom () {
 
 		// add current player location to empty room list
 		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}else if (roomProperties.gold != null) {
 
 		player.gold += roomProperties.gold;
@@ -1268,7 +1363,11 @@ function checkRoom () {
 
 		// add current player location to empty room list
 		emptyRoomList.push({x:currentRoomPos.x, y:currentRoomPos.y});
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> b67056e53e2bf60b9fee5f01cb58e86c3a7d133d
 	}
 
 
