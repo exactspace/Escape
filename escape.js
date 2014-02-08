@@ -138,7 +138,7 @@ function makeRandomChestProperties(chest) {
 
 	if(openChestChance == 0){
 
-		chest.keys = roll('D4');
+		chest.keys = roll('D6');
 
 	}else{
 
@@ -151,7 +151,7 @@ function makeRandomChestProperties(chest) {
 
 	if(openChestChance == 0){
 
-		chest.gold = roll('D10');
+		chest.gold = roll('D15');
 
 	}else{
 
@@ -163,7 +163,7 @@ function makeRandomChestProperties(chest) {
 
 	if(openChestChance == 0){
 
-		chest.food = roll('D7');
+		chest.food = roll('D9');
 
 	}else{
 
@@ -263,18 +263,6 @@ function makeRooms(rows, cols){
         // Initializes:
 
 		var room = new Object();
-
-//		room.colR1 = Math.floor(Math.random()*206)+50;
-//		room.colR2 = Math.floor(Math.random()*206)+50;
-//		room.colR3 = Math.floor(Math.random()*206)+50;
-//		
-//		room.colG1 = Math.floor(Math.random()*206)+50;
-//		room.colG2 = Math.floor(Math.random()*206)+50;
-//		room.colG3 = Math.floor(Math.random()*206)+50;
-//		
-//		room.colB1 = Math.floor(Math.random()*206)+50;
-//		room.colB2 = Math.floor(Math.random()*206)+50;
-//		room.colB3 = Math.floor(Math.random()*206)+50;
 
 		room.colR1 = Math.floor(206/(dungeonSize.width/j))+50;
 		room.colG1 = Math.floor(206/(dungeonSize.width/i))+50;
@@ -926,7 +914,11 @@ function checkMoveWithPos(pos, dir){
 
 			player.food -= 1;
 
-			if(player.food == 0){
+			if(player.food == 0 && player.health == 6){
+
+				writeMessage("You're wasting away to almost nothing from starving to death. Your body more or less resembles skin and bones. Find food fast.","messageRed");
+
+			}else if(player.food == 0){
 
 				writeMessage("You ran out of food! You can feel yourself getting weaker with every step you take.","messageRed");
 
@@ -936,17 +928,17 @@ function checkMoveWithPos(pos, dir){
 
 			player.health -= 1;
 
+			if(player.health == 10){
+
+				writeMessage("You're running dangerously low on health!","messageRed");
+
+			}
+
 		}
 
-		if(player.food == 0 && player.health == 6){
+		if(player.health == 1){
 
-			writeMessage("You're wasting away to almost nothing from starving to death. Your body more or less resembles skin and bones. Find food fast.","messageRed");
-
-		} 
-
-		if(player.health == 10){
-
-			writeMessage("You're running dangerously low on health!","messageRed");
+			writeMessage("You have 1 health left. Take your last dying step.","messageRed");
 
 		}
 
