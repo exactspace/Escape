@@ -84,11 +84,19 @@
 			top:50%;
 			left:50%;
 			}
+
+			#banner {
+				width: 475px;
+				margin: 0 auto;
+			}
 		</style>
 	</head>
 	<body>
-	
-	
+
+	<div id="banner">
+		<img src="banner.gif" />
+	</div>
+		
 	<div id="centerDiv" class="centerDiv">
 		
 		<canvas id="playfield" width='430px'></canvas>
